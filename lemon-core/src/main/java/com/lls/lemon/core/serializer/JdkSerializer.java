@@ -1,5 +1,6 @@
 package com.lls.lemon.core.serializer;
 
+import com.lls.lemon.core.enums.LemonSerializerVersion;
 import com.lls.lemon.core.exception.LemonSerializerException;
 import com.lls.lemon.core.util.LemonUtils;
 import org.slf4j.Logger;
@@ -53,6 +54,11 @@ public class JdkSerializer implements Serializer {
             LemonUtils.close(arrayInputStream);
             LemonUtils.close(objectInputStream);
         }
+    }
+
+    @Override
+    public LemonSerializerVersion getSerializerVersion() {
+        return LemonSerializerVersion.JDK_SERIALIZER;
     }
 
 

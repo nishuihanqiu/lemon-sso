@@ -13,13 +13,18 @@ public class RedisStore implements Store {
     private ShardedJedis client;
     private Serializer serializer;
 
-    public RedisStore(ShardedJedis client, Serializer serializer) {
+    RedisStore(ShardedJedis client, Serializer serializer) {
         this.client = client;
         this.serializer = serializer;
     }
 
     @Override
     public void set(String key, Object val) {
+
+    }
+
+    @Override
+    public void set(String key, Object val, long timeMills) {
 
     }
 

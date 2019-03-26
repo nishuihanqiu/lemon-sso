@@ -1,6 +1,6 @@
 package com.lls.lemon.core.model;
 
-import com.lls.lemon.core.enums.LemonStateEnum;
+import com.lls.lemon.core.enums.LemonState;
 
 import java.io.Serializable;
 
@@ -23,8 +23,8 @@ public class Result<T> implements Serializable {
   }
 
   public Result(T data) {
-    this.code = LemonStateEnum.SUCCESS.getCode();
-    this.message = LemonStateEnum.SUCCESS.getMessage();
+    this.code = LemonState.SUCCESS.getCode();
+    this.message = LemonState.SUCCESS.getMessage();
     this.data = data;
   }
 

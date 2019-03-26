@@ -1,6 +1,6 @@
 package com.lls.lemon.core.consts;
 
-import com.lls.lemon.core.enums.LemonStateEnum;
+import com.lls.lemon.core.enums.LemonState;
 import com.lls.lemon.core.model.Result;
 
 /************************************
@@ -46,6 +46,11 @@ public class LemonConsts {
   public static final String LEMON_REDIREC_URL = "lemon_redirect_url";
 
   /**
+   * DEFAULT EXPIRED TIME (MILLS)
+   */
+  public static final String LEMON_DEFAULT_EXPIRED_TIME_MILLS = "lemon_expired_time_mills";
+
+  /**
    * SUCCESS RESULT
    */
   public static final Result<String> LEMON_SUCCESS_RESULT = new Result<>("success result");
@@ -53,14 +58,14 @@ public class LemonConsts {
   /**
    * FAILED RESULT
    */
-  public static final Result<String> LEMON_FAILED_RESULT = new Result<>(LemonStateEnum.FAILED.getCode(),
-    LemonStateEnum.FAILED.getMessage());
+  public static final Result<String> LEMON_FAILED_RESULT = new Result<>(LemonState.FAILED.getCode(),
+    LemonState.FAILED.getMessage());
 
   /**
    * NETWORK ERROR
    */
-  public static final Result<String> LEMON_NETWORK_ERROR = new Result<>(LemonStateEnum.NET_ERROR.getCode(),
-    LemonStateEnum.NET_ERROR.getMessage());
+  public static final Result<String> LEMON_NETWORK_ERROR = new Result<>(LemonState.NET_ERROR.getCode(),
+    LemonState.NET_ERROR.getMessage());
 
 
 }

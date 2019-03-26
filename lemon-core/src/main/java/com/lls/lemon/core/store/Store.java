@@ -9,6 +9,8 @@ public interface Store {
 
     void set(String key, Object val);
 
+    void set(String key, Object val, long timeMills);
+
     <T> T get(String key);
 
     boolean containsKey(String key);
