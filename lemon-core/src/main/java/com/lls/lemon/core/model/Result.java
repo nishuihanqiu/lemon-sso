@@ -11,7 +11,7 @@ import java.io.Serializable;
  ************************************/
 public class Result<T> implements Serializable {
 
-  public static final long serialVersionUID = -7345992330241L;
+  private static final long serialVersionUID = -7345992330241L;
 
   private String code;
   private String message;
