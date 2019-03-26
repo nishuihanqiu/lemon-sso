@@ -1,5 +1,6 @@
 package com.lls.lemon.core.store;
 
+import com.lls.lemon.core.exception.LemonArgumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,8 +85,11 @@ public class MemoryStore implements Store {
 
     @Override
     public void set(String key, Object val, long timeMills) {
+        if (timeMills <= 0) {
+            throw new LemonArgumentException("memory store expired time mills must be gt 0");
+        }
         store.put(key, val);
-        expiredTimeMills.put(key, timeMills);
+        expiredTimeMills.put(key, timeMills + System.currentTimeMillis());
     }
 
     @SuppressWarnings("unchecked")

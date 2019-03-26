@@ -5,7 +5,7 @@ package com.lls.lemon.core.exception;
  * @author liliangshan
  * @date 2019-03-26
  ************************************/
-public class LemonSerializerException extends RuntimeException {
+public class LemonSerializerException extends LemonException {
 
     public LemonSerializerException(String message) {
         super(message);

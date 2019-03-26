@@ -1,7 +1,7 @@
 package com.lls.lemon.core.store;
 
 import com.lls.lemon.core.serializer.Serializer;
-import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.ShardedJedisPool;
 
 /************************************
  * RedisStoreFactory
@@ -10,17 +10,19 @@ import redis.clients.jedis.ShardedJedis;
  ************************************/
 public class RedisStoreFactory implements StoreFactory {
 
-    private ShardedJedis shardedJedis;
+    private ShardedJedisPool shardedJedisPool;
     private Serializer serializer;
+    private Class targetClass;
 
-    public RedisStoreFactory(ShardedJedis shardedJedis, Serializer serializer) {
-        this.shardedJedis = shardedJedis;
+    public RedisStoreFactory(ShardedJedisPool shardedJedisPool, Serializer serializer, Class targetClass) {
+        this.shardedJedisPool = shardedJedisPool;
         this.serializer = serializer;
+        this.targetClass = targetClass;
     }
 
     @Override
     public Store createStore() {
-        return new RedisStore(shardedJedis, serializer);
+        return new RedisStore(shardedJedisPool, serializer, targetClass);
     }
 
 }

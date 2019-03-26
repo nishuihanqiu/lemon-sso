@@ -13,12 +13,12 @@ public class LemonConsts {
   /**
    * SESSION_ID
    */
-  public static final String LEMON_SESSION_ID = "lemon_session_id";
+  public static final String LEMON_SESSION_ID = "LEMON_SESSION_ID";
 
   /**
    * AUTH
    */
-  public static final String LEMON_X_AUTH = "lemon_x_auth";
+  public static final String LEMON_X_AUTH = "LEMON_X_AUTH";
 
   /**
    * HOST
