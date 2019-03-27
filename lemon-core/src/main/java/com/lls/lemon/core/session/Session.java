@@ -12,19 +12,25 @@ public interface Session {
     /**
      * login
      *
-     * @param auth       user auth
-     * @param isRemember <p>Default is {@code true}. Switch this to {@code false} don't remember it.
+     * @param auth           user auth
+     * @param isRemember     <p>Default is {@code true}. Switch this to {@code false} don't remember it.
+     * @param expiredSeconds expire time interval (seconds)
      * @return sessionId
      * @see #createSessionId(LemonAuth)
      */
-    String login(LemonAuth auth, boolean isRemember);
+    String login(LemonAuth auth, boolean isRemember, int expiredSeconds);
 
     /**
-     * logout
+     * logout by sessionId
      *
      * @param sessionId cookie value or token
      */
     void logout(String sessionId);
+
+    /**
+     * logout
+     */
+    void logout();
 
     /**
      * get user auth
@@ -67,6 +73,8 @@ public interface Session {
      * @return version for session
      */
     String getVersion(String sessionId);
+
+    String getValue(String sessionId, int index);
 
 
 }

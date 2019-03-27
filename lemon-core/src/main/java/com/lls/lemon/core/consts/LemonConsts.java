@@ -16,6 +16,12 @@ public class LemonConsts {
     public static final String LEMON_SESSION_ID = "LEMON_SESSION_ID";
 
     /**
+     * COOKIE DOMAIN
+     */
+
+    public static final String LEMON_COOKIE_DOMAIN = "LEMON_COOKIE_DOMAIN";
+
+    /**
      * AUTH
      */
     public static final String LEMON_X_AUTH = "LEMON_X_AUTH";
