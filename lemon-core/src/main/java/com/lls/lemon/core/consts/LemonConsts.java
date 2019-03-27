@@ -10,62 +10,77 @@ import com.lls.lemon.core.model.Result;
  ************************************/
 public class LemonConsts {
 
-  /**
-   * SESSION_ID
-   */
-  public static final String LEMON_SESSION_ID = "LEMON_SESSION_ID";
+    /**
+     * SESSION_ID
+     */
+    public static final String LEMON_SESSION_ID = "LEMON_SESSION_ID";
 
-  /**
-   * AUTH
-   */
-  public static final String LEMON_X_AUTH = "LEMON_X_AUTH";
+    /**
+     * AUTH
+     */
+    public static final String LEMON_X_AUTH = "LEMON_X_AUTH";
 
-  /**
-   * HOST
-   */
-  public static final String LEMON_HOST = "lemon_host";
+    /**
+     * HOST
+     */
+    public static final String LEMON_HOST = "lemon_host";
 
-  /**
-   * PORT
-   */
-  public static final String LEMON_PORT = "lemon_port";
+    /**
+     * PORT
+     */
+    public static final String LEMON_PORT = "lemon_port";
 
-  /**
-   * LOGIN URL
-   */
-  public static final String LEMON_LOGIN_URL = "lemon_login_url";
+    /**
+     * URL SEPARATOR
+     */
+    public static final String LEMON_URL_SEPARATOR = "lemon_url_separator";
 
-  /**
-   * LOGOUT URL
-   */
-  public static final String LEMON_LOGOUT_URL = "lemon_logout_url";
+    /**
+     * BASE PATH
+     */
+    public static final String LEMON_URL_BASE_PATH_PREFIX = "lemon_url_base_path_prefix";
 
-  /**
-   * REDIRECT_URL
-   */
-  public static final String LEMON_REDIREC_URL = "lemon_redirect_url";
+    /**
+     * LOGIN URL
+     */
+    public static final String LEMON_URL_LOGIN_PATH = "lemon_url_login_path";
 
-  /**
-   * DEFAULT EXPIRED TIME (MILLS)
-   */
-  public static final String LEMON_DEFAULT_EXPIRED_TIME_MILLS = "lemon_expired_time_mills";
+    /**
+     * LOGOUT URL
+     */
+    public static final String LEMON_URL_LOGOUT_PATH = "lemon_url_logout_path";
 
-  /**
-   * SUCCESS RESULT
-   */
-  public static final Result<String> LEMON_SUCCESS_RESULT = new Result<>("success result");
+    /**
+     * REDIRECT_URL
+     */
+    public static final String LEMON_URL_REDIREC_PATH = "lemon_url_redirect_path";
 
-  /**
-   * FAILED RESULT
-   */
-  public static final Result<String> LEMON_FAILED_RESULT = new Result<>(LemonState.FAILED.getCode(),
-    LemonState.FAILED.getMessage());
+    /**
+     * OPEN API URLs
+     */
+    public static final String LEMON_URL_OPEN_API_PATH = "lemon_url_open_api_path";
 
-  /**
-   * NETWORK ERROR
-   */
-  public static final Result<String> LEMON_NETWORK_ERROR = new Result<>(LemonState.NET_ERROR.getCode(),
-    LemonState.NET_ERROR.getMessage());
+    /**
+     * DEFAULT EXPIRED TIME (MILLS)
+     */
+    public static final String LEMON_DEFAULT_EXPIRED_TIME_MILLS = "lemon_expired_time_mills";
+
+    /**
+     * SUCCESS RESULT
+     */
+    public static final Result<String> LEMON_SUCCESS_RESULT = new Result<>("success result");
+
+    /**
+     * FAILED RESULT
+     */
+    public static final Result<String> LEMON_FAILED_RESULT = new Result<>(LemonState.FAILED.getCode(),
+            LemonState.FAILED.getMessage());
+
+    /**
+     * NETWORK ERROR
+     */
+    public static final Result<String> LEMON_NETWORK_ERROR = new Result<>(LemonState.NET_ERROR.getCode(),
+            LemonState.NET_ERROR.getMessage());
 
 
 }
