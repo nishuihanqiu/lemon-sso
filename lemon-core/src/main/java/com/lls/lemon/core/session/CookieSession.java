@@ -30,6 +30,17 @@ public class CookieSession extends LemonSession {
     private HttpServletResponse response;
     private static Store store = StoreManager.getInstance().getStore();
 
+    public CookieSession() {
+    }
+
+    public void setRequest(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    public void setResponse(HttpServletResponse response) {
+        this.response = response;
+    }
+
     @Override
     public String login(LemonAuth auth, boolean isRemember, int expiredSeconds) {
         logger.info("cookie auth:{}, isRemember:{}", auth, isRemember);
@@ -56,33 +67,59 @@ public class CookieSession extends LemonSession {
     }
 
     @Override
-    public void logout(String sessionId) {
-
+    protected void logout(String sessionId) {
+        if (sessionId == null || sessionId.trim().isEmpty()) {
+            throw new LemonArgumentException("Cookie sessionId must not be null.");
+        }
+        this.remove(sessionId);
     }
 
     @Override
     public void logout() {
-
+        Cookie cookie = this.getCookie();
+        if (cookie == null) {
+            return;
+        }
+        String sessionId = cookie.getValue();
+        if (sessionId == null) {
+            return;
+        }
+        this.logout(sessionId);
     }
 
     @Override
     public LemonAuth getAuth(String sessionId) {
-        return null;
+        return getStoreAuth(sessionId, store);
     }
 
     @Override
     public void remove(String sessionId) {
-
+        logger.info("remove cookie sessionId:{}", sessionId);
+        Cookie cookie = new Cookie(LemonConsts.LEMON_SESSION_ID, null);
+        cookie.setPath(COOKIE_PATH);
+        cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+        String storeKey = getStoreKey(sessionId);
+        if (storeKey == null) {
+            return;
+        }
+        store.delete(storeKey);
     }
 
-    @Override
-    public String getStoreKey(String sessionId) {
-        return this.getValue(sessionId, 0);
-    }
+    private Cookie getCookie() {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null || cookies.length == 0) {
+            return null;
+        }
 
-    @Override
-    public String getVersion(String sessionId) {
-        return this.getValue(sessionId, 1);
+        Cookie cookie = null;
+        for (Cookie item : cookies) {
+            if (LemonConsts.LEMON_SESSION_ID.equals(item.getName())) {
+                cookie = item;
+            }
+        }
+        return cookie;
     }
 
 }

@@ -7,7 +7,7 @@ import com.lls.lemon.core.model.LemonAuth;
  * @author liliangshan
  * @date 2019-03-26
  ************************************/
-public interface Session {
+interface Session {
 
     /**
      * login
@@ -19,13 +19,6 @@ public interface Session {
      * @see #createSessionId(LemonAuth)
      */
     String login(LemonAuth auth, boolean isRemember, int expiredSeconds);
-
-    /**
-     * logout by sessionId
-     *
-     * @param sessionId cookie value or token
-     */
-    void logout(String sessionId);
 
     /**
      * logout
@@ -73,8 +66,6 @@ public interface Session {
      * @return version for session
      */
     String getVersion(String sessionId);
-
-    String getValue(String sessionId, int index);
 
 
 }

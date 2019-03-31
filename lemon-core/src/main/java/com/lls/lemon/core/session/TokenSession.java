@@ -23,7 +23,10 @@ public class TokenSession extends LemonSession {
     private static Store store = StoreManager.getInstance().getStore();
     private HttpServletRequest request;
 
-    public TokenSession(HttpServletRequest request) {
+    public TokenSession() {
+    }
+
+    public void setRequest(HttpServletRequest request) {
         this.request = request;
     }
 
@@ -41,9 +44,9 @@ public class TokenSession extends LemonSession {
     }
 
     @Override
-    public void logout(String sessionId) {
+    protected void logout(String sessionId) {
         if (sessionId == null || sessionId.trim().isEmpty()) {
-            throw new LemonArgumentException("sessionId must not be null.");
+            throw new LemonArgumentException("Token sessionId must not be null.");
         }
         this.remove(sessionId);
     }
@@ -62,51 +65,17 @@ public class TokenSession extends LemonSession {
 
     @Override
     public LemonAuth getAuth(String sessionId) {
-        String storeKey = this.getStoreKey(sessionId);
-        if (storeKey == null) {
-            return null;
-        }
-
-        LemonAuth auth = store.get(storeKey);
-        if (auth == null) {
-            return null;
-        }
-
-        String version = auth.getVersion();
-        if (!auth.getVersion().equals(version)) {
-            store.delete(storeKey);
-            return null;
-        }
-
-        if ((System.currentTimeMillis() - auth.getExpiredFlushTimeMills()) > auth.getExpiredTimeMills() / 2) {
-            store.set(storeKey, auth, auth.getExpiredTimeMills());
-        }
-        return auth;
+        return getStoreAuth(sessionId, store);
     }
 
     @Override
     public void remove(String sessionId) {
-        if (sessionId == null) {
-            return;
-        }
         String storeKey = this.getStoreKey(sessionId);
         if (storeKey == null) {
             return;
         }
         store.delete(storeKey);
     }
-
-
-    @Override
-    public String getStoreKey(String sessionId) {
-        return this.getValue(sessionId, 0);
-    }
-
-    @Override
-    public String getVersion(String sessionId) {
-        return this.getValue(sessionId, 1);
-    }
-
 
 
 }

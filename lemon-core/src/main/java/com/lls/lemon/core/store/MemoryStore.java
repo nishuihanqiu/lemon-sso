@@ -71,7 +71,7 @@ public class MemoryStore implements Store {
                         }
                     });
                 }
-            }, 0, 1, TimeUnit.SECONDS);
+            }, 0, 500, TimeUnit.MILLISECONDS);
 
             logger.info(MEMORY_EXPIRED_CHECK + " service is submitted.");
         }
