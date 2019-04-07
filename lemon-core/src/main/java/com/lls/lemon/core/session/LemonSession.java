@@ -1,8 +1,11 @@
 package com.lls.lemon.core.session;
 
+import com.lls.lemon.core.consts.LemonConsts;
 import com.lls.lemon.core.exception.LemonArgumentException;
 import com.lls.lemon.core.model.LemonAuth;
 import com.lls.lemon.core.store.Store;
+
+import javax.servlet.http.HttpServletRequest;
 
 /************************************
  * LemonSession
@@ -101,5 +104,13 @@ public abstract class LemonSession implements Session {
             store.set(storeKey, auth, auth.getExpiredTimeMills());
         }
         return auth;
+    }
+
+    @Override
+    public String getSessionId(HttpServletRequest request) {
+        if (request == null) {
+            throw new LemonArgumentException("http servlet request must not be null.");
+        }
+        return request.getHeader(LemonConsts.LEMON_SESSION_ID);
     }
 }

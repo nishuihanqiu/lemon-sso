@@ -74,7 +74,8 @@ public class LemonConsts {
     /**
      * SUCCESS RESULT
      */
-    public static final Result<String> LEMON_SUCCESS_RESULT = new Result<>("success result");
+    public static final Result<String> LEMON_SUCCESS_RESULT = new Result<>(LemonState.SUCCESS.getCode(),
+            "success result");
 
     /**
      * FAILED RESULT

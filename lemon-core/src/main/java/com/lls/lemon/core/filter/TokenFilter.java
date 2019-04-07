@@ -1,7 +1,10 @@
 package com.lls.lemon.core.filter;
 
 import com.lls.lemon.core.consts.LemonConsts;
+import com.lls.lemon.core.enums.LemonState;
+import com.lls.lemon.core.model.LemonAuth;
 import com.lls.lemon.core.path.AntPathMatcher;
+import com.lls.lemon.core.session.TokenSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +31,7 @@ public class TokenFilter extends LemonFilter {
     private String logoutPath;
     private String openApiUrls;
     private AntPathMatcher pathMatcher = new AntPathMatcher();
+    private TokenSession session;
 
 
     @Override
@@ -45,6 +49,8 @@ public class TokenFilter extends LemonFilter {
 
         logger.info("token filter init base url:{},base path prefix:{}, logout:{}, open api urls:{}",
                 baseUrl, basePathPrefix, logoutPath, this.openApiUrls);
+        session = new TokenSession();
+        logger.info("token filter init completed.");
     }
 
     @Override
@@ -71,12 +77,33 @@ public class TokenFilter extends LemonFilter {
 
     @Override
     void doLoginApiFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        String sessionId = session.getSessionId(request);
+        LemonAuth auth = session.getAuth(sessionId);
+        if (auth != null) {
+            request.setAttribute(LemonConsts.LEMON_X_AUTH, auth);
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        // response
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().println(LemonConsts.LEMON_FAILED_RESULT.toJson());
 
     }
 
     @Override
     void doLogoutApiFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-
+        String servletPath = request.getServletPath();
+        if (logoutPath != null && logoutPath.trim().length() > 0 && logoutPath.equals(servletPath)) {
+            session.logout(request);
+            // response
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().println(LemonConsts.LEMON_SUCCESS_RESULT.toJson());
+            return;
+        }
+        filterChain.doFilter(request, response);
     }
 
     @Override

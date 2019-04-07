@@ -2,6 +2,8 @@ package com.lls.lemon.core.session;
 
 import com.lls.lemon.core.model.LemonAuth;
 
+import javax.servlet.http.HttpServletRequest;
+
 /************************************
  * Session
  * @author liliangshan
@@ -23,7 +25,7 @@ interface Session {
     /**
      * logout
      */
-    void logout();
+    void logout(HttpServletRequest request);
 
     /**
      * get user auth
@@ -66,6 +68,14 @@ interface Session {
      * @return version for session
      */
     String getVersion(String sessionId);
+
+    /**
+     * get sessionId by HttpServletRequest
+     *
+     * @param request HttpServletRequest
+     * @return sessionId for session
+     */
+    String getSessionId(HttpServletRequest request);
 
 
 }

@@ -26,15 +26,10 @@ public class CookieSession extends LemonSession {
     // 保存路径,根路径
     private static final String COOKIE_PATH = "/";
 
-    private HttpServletRequest request;
     private HttpServletResponse response;
     private static Store store = StoreManager.getInstance().getStore();
 
     public CookieSession() {
-    }
-
-    public void setRequest(HttpServletRequest request) {
-        this.request = request;
     }
 
     public void setResponse(HttpServletResponse response) {
@@ -75,12 +70,8 @@ public class CookieSession extends LemonSession {
     }
 
     @Override
-    public void logout() {
-        Cookie cookie = this.getCookie();
-        if (cookie == null) {
-            return;
-        }
-        String sessionId = cookie.getValue();
+    public void logout(HttpServletRequest request) {
+        String sessionId = this.getSessionId(request);
         if (sessionId == null) {
             return;
         }
@@ -107,7 +98,7 @@ public class CookieSession extends LemonSession {
         store.delete(storeKey);
     }
 
-    private Cookie getCookie() {
+    private Cookie getCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies == null || cookies.length == 0) {
             return null;
@@ -122,4 +113,12 @@ public class CookieSession extends LemonSession {
         return cookie;
     }
 
+    @Override
+    public String getSessionId(HttpServletRequest request) {
+        Cookie cookie = this.getCookie(request);
+        if (cookie == null) {
+            return null;
+        }
+        return cookie.getValue();
+    }
 }

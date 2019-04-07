@@ -51,4 +51,9 @@ public class Result<T> implements Serializable {
   public void setData(T data) {
     this.data = data;
   }
+
+  public String toJson() {
+    return "{\"code\":" + this.getCode() + ", \"message\":\"" + this.getMessage()
+            + ", \"data\":\"" + this.getData() +"\"}";
+  }
 }

@@ -19,15 +19,9 @@ public class TokenSession extends LemonSession {
 
     private static final Logger logger = LoggerFactory.getLogger(TokenSession.class);
     private static final int DEFAULT_TOKEN_EXPIRED_TIME_SECONDS = 30 * 60;
-
     private static Store store = StoreManager.getInstance().getStore();
-    private HttpServletRequest request;
 
     public TokenSession() {
-    }
-
-    public void setRequest(HttpServletRequest request) {
-        this.request = request;
     }
 
     @Override
@@ -52,11 +46,8 @@ public class TokenSession extends LemonSession {
     }
 
     @Override
-    public void logout() {
-        if (request == null) {
-            return;
-        }
-        String headerSessionId = request.getHeader(LemonConsts.LEMON_SESSION_ID);
+    public void logout(HttpServletRequest request) {
+        String headerSessionId = this.getSessionId(request);
         if (headerSessionId == null) {
             return;
         }
