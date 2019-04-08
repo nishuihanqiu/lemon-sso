@@ -64,7 +64,7 @@ public class CookieFilter extends LemonFilter {
         String link = request.getRequestURL().toString();
         // redirect logout
         String redirectLoginURL = this.lemonURL.concat(LemonConsts.LEMON_URL_LOGIN_PATH) +
-                "?" + LemonConsts.LEMON_URL_REDIREC_PATH + "=" + link;
+                "?" + LemonConsts.LEMON_URL_REDIRECT_PATH + "=" + link;
         response.sendRedirect(redirectLoginURL);
         return false;
     }

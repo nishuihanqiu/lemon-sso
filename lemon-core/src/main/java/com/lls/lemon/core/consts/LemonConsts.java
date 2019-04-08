@@ -59,7 +59,7 @@ public class LemonConsts {
     /**
      * REDIRECT_URL
      */
-    public static final String LEMON_URL_REDIREC_PATH = "lemon_url_redirect_path";
+    public static final String LEMON_URL_REDIRECT_PATH = "lemon_url_redirect_path";
 
     /**
      * OPEN API URLs
