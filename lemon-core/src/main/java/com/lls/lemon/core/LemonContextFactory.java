@@ -7,6 +7,18 @@ package com.lls.lemon.core;
  ************************************/
 public class LemonContextFactory {
 
+    private Configuration configuration;
 
+    public LemonContextFactory(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    public LemonContext makeObject() {
+        return new DefaultLemonContext(configuration);
+    }
+
+    public Configuration getConfiguration() {
+        return configuration;
+    }
 
 }

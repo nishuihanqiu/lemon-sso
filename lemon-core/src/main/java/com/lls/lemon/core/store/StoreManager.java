@@ -3,6 +3,8 @@ package com.lls.lemon.core.store;
 import com.lls.lemon.core.LemonContext;
 import com.lls.lemon.core.exception.LemonException;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /************************************
  * StoreManager
  * @author liliangshan
@@ -11,7 +13,7 @@ import com.lls.lemon.core.exception.LemonException;
 public class StoreManager {
 
     private Store store;
-    private LemonContext context;
+    private AtomicBoolean registered = new AtomicBoolean(false);
 
     private StoreManager() {
     }
@@ -24,13 +26,20 @@ public class StoreManager {
         if (store != null) {
             return store;
         }
-        if (context == null) {
-            store = createMemoryStore();
-        }
+        throw new LemonException("In order to get store, lemon context must be register store manager.");
+    }
+
+    public void registryContext(LemonContext context) {
         if (store != null) {
-            return store;
+            return;
         }
-        throw new LemonException("In order to build redis store, lemon context must not be null.");
+        if (registered.compareAndSet(false, true)) {
+            if (context == null) {
+                store = this.createMemoryStore();
+                return;
+            }
+            store = this.createRedisStore(context);
+        }
     }
 
     private Store createMemoryStore() {
@@ -38,7 +47,7 @@ public class StoreManager {
         return factory.createStore();
     }
 
-    private Store createRedisStore() {
+    private Store createRedisStore(LemonContext context) {
         if (context == null) {
             throw new LemonException("In order to build redis store, lemon context must not be null.");
         }

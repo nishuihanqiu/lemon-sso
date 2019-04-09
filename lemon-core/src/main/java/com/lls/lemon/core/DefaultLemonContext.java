@@ -9,6 +9,7 @@ import com.lls.lemon.core.serializer.JacksonSerializer;
 import com.lls.lemon.core.serializer.JdkSerializer;
 import com.lls.lemon.core.serializer.ProtoStuffSerializer;
 import com.lls.lemon.core.serializer.Serializer;
+import com.lls.lemon.core.store.StoreManager;
 
 /************************************
  * DefaultLemonContext
@@ -31,6 +32,7 @@ public class DefaultLemonContext implements LemonContext {
         this.serializer = this.createSerializer(configuration.getSerializerVersion());
         this.lemonStoreCategory = LemonStoreCategory.getInstance(configuration.getStoreCategory());
         this.targetClass = LemonAuth.class;
+        this.initializeStoreManager(this);
     }
 
     @Override
@@ -71,6 +73,10 @@ public class DefaultLemonContext implements LemonContext {
         }
 
         return new JdkSerializer();
+    }
+
+    private void initializeStoreManager(LemonContext context) {
+        StoreManager.getInstance().registryContext(context);
     }
 
 
