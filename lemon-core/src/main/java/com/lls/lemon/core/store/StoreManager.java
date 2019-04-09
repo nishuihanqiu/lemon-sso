@@ -1,6 +1,7 @@
 package com.lls.lemon.core.store;
 
 import com.lls.lemon.core.LemonContext;
+import com.lls.lemon.core.enums.LemonStoreCategory;
 import com.lls.lemon.core.exception.LemonException;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -34,10 +35,11 @@ public class StoreManager {
             return;
         }
         if (registered.compareAndSet(false, true)) {
-            if (context == null) {
+            if (context == null || LemonStoreCategory.MEMORY_STORE == context.getLemonStoreCategory()) {
                 store = this.createMemoryStore();
                 return;
             }
+
             store = this.createRedisStore(context);
         }
     }

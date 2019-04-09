@@ -19,7 +19,7 @@ public interface LemonContext {
 
     LemonStoreCategory getLemonStoreCategory();
 
-    Configuration getConfiguration();
+    LemonConfiguration getConfiguration();
 
 
 }

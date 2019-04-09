@@ -3,15 +3,15 @@ package com.lls.lemon.core;
 import com.lls.lemon.core.redis.RedisConfig;
 
 /************************************
- * Configuration
+ * LemonConfiguration
  * @author liliangshan
  * @date 2019-04-08
  ************************************/
-public class Configuration {
+public class LemonConfiguration {
 
     private RedisConfig redisConfig;
     private String serializerVersion;
-    private String storeCategory;
+    private String storeCategoryCode;
 
     public RedisConfig getRedisConfig() {
         return redisConfig;
@@ -29,12 +29,12 @@ public class Configuration {
         return serializerVersion;
     }
 
-    public void setStoreCategory(String storeCategory) {
-        this.storeCategory = storeCategory;
+    public void setStoreCategoryCode(String storeCategoryCode) {
+        this.storeCategoryCode = storeCategoryCode;
     }
 
-    public String getStoreCategory() {
-        return storeCategory;
+    public String getStoreCategoryCode() {
+        return storeCategoryCode;
     }
 
 }

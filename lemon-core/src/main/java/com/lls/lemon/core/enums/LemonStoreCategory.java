@@ -7,10 +7,21 @@ package com.lls.lemon.core.enums;
  ************************************/
 public enum LemonStoreCategory {
 
-  MEMORY_STORE, REDIS_STORE;
+  MEMORY_STORE("MEMORY_STORE"),
+  REDIS_STORE("REDIS_STORE");
 
-  public static LemonStoreCategory getInstance(String storeCategory) {
-    if (REDIS_STORE.name().equals(storeCategory)) {
+  private String code;
+
+  LemonStoreCategory(String code) {
+    this.code = code;
+  }
+
+  public String getCode() {
+    return code;
+  }
+
+  public static LemonStoreCategory getByCode(String categoryCode) {
+    if (REDIS_STORE.getCode().equals(categoryCode)) {
       return REDIS_STORE;
     }
     return MEMORY_STORE;

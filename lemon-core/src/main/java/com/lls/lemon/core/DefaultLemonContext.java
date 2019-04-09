@@ -18,19 +18,19 @@ import com.lls.lemon.core.store.StoreManager;
  ************************************/
 public class DefaultLemonContext implements LemonContext {
 
-    private final Configuration configuration;
+    private final LemonConfiguration configuration;
     private RedisClient redisClient;
     private Serializer serializer;
     private Class<?> targetClass;
     private LemonStoreCategory lemonStoreCategory;
 
-    public DefaultLemonContext(Configuration configuration) {
+    public DefaultLemonContext(LemonConfiguration configuration) {
         this.configuration = configuration;
         if (configuration.getRedisConfig() != null) {
             this.redisClient = createRedisClient(configuration.getRedisConfig());
         }
         this.serializer = this.createSerializer(configuration.getSerializerVersion());
-        this.lemonStoreCategory = LemonStoreCategory.getInstance(configuration.getStoreCategory());
+        this.lemonStoreCategory = LemonStoreCategory.getByCode(configuration.getStoreCategoryCode());
         this.targetClass = LemonAuth.class;
         this.initializeStoreManager(this);
     }
@@ -56,7 +56,7 @@ public class DefaultLemonContext implements LemonContext {
     }
 
     @Override
-    public Configuration getConfiguration() {
+    public LemonConfiguration getConfiguration() {
         return configuration;
     }
 

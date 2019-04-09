@@ -34,6 +34,8 @@ public class RedisConfig {
     private String jmxNamePrefix = "pool";
     private String jmxNameBase;
 
+
+
     public String getAddresses() {
         return addresses;
     }
